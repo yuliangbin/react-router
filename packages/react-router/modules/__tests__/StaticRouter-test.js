@@ -3,11 +3,7 @@ import ReactDOM from "react-dom";
 import ReactDOMServer from "react-dom/server";
 import PropTypes from "prop-types";
 
-import Route from "../Route";
-import RouterContext from "../RouterContext";
-import Prompt from "../Prompt";
-import Redirect from "../Redirect";
-import StaticRouter from "../StaticRouter";
+import { StaticRouter, Redirect, Route, Prompt, withRouter } from "react-router";
 
 describe("A <StaticRouter>", () => {
   const node = document.createElement("div");
@@ -31,18 +27,10 @@ describe("A <StaticRouter>", () => {
 
   describe("context", () => {
     let context;
-    class ContextChecker extends React.Component {
-      render() {
-        return (
-          <RouterContext.Consumer>
-            {value => {
-              context = value;
-              return null;
-            }}
-          </RouterContext.Consumer>
-        );
-      }
-    }
+    const ContextChecker = withRouter(value => {
+      context = value;
+      return null;
+    });
 
     afterEach(() => {
       context = undefined;

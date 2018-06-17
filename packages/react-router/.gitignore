@@ -3,4 +3,5 @@ node_modules
 umd
 utils
 /*.js
+!jest.config.js
 !rollup.config.js

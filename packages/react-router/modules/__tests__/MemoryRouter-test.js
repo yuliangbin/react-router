@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
-import MemoryRouter from "../MemoryRouter";
-import RouterContext from "../RouterContext";
+import { MemoryRouter, withRouter } from "react-router";
 
 describe("A <MemoryRouter>", () => {
   const node = document.createElement("div");
@@ -27,18 +26,10 @@ describe("A <MemoryRouter>", () => {
 
   describe("context", () => {
     let context;
-    class ContextChecker extends React.Component {
-      render() {
-        return (
-          <RouterContext.Consumer>
-            {value => {
-              context = value;
-              return null;
-            }}
-          </RouterContext.Consumer>
-        );
-      }
-    }
+    const ContextChecker = withRouter(value => {
+      context = value;
+      return null;
+    });
 
     afterEach(() => {
       context = undefined;

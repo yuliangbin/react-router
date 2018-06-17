@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import MemoryRouter from "../MemoryRouter";
-import Route from "../Route";
-import Switch from "../Switch";
+import { MemoryRouter, Switch, Route } from "react-router";
 
 describe("A <Switch>", () => {
   const node = document.createElement("div");
