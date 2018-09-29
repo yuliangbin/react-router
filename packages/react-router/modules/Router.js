@@ -4,6 +4,7 @@ import warning from "warning";
 
 import RouterContext from "./RouterContext";
 import warnAboutGettingProperty from "./utils/warnAboutGettingProperty";
+import scheduleCallback from "./utils/scheduleCallback";
 
 function getContext(props, state) {
   return {
@@ -60,11 +61,24 @@ class Router extends React.Component {
     };
 
     this.unlisten = props.history.listen(location => {
-      this.setState({ location });
+      if (process.env.NODE_ENV === "test") {
+        this.setState({ location });
+      } else {
+        // Location updates get low priority so they
+        // don't interfere with more important work.
+        // TODO: How do we test this when the timing is
+        // so unpredictable? Use immediate priority?
+        scheduleCallback(() => {
+          if (!this.isUnmounted) {
+            this.setState({ location });
+          }
+        });
+      }
     });
   }
 
   componentWillUnmount() {
+    this.isUnmounted = true;
     this.unlisten();
   }
 
