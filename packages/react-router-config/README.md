@@ -44,11 +44,17 @@ This project seeks to define a shared format for others to build patterns on top
 ## Route Configuration Shape
 
 Routes are objects with the same properties as a `<Route>` with a couple differences:
+Routes是'<Route> '具有相同属性的对象，但有几个区别:
 
 - the only render prop it accepts is `component` (no `render` or `children`)
 - introduces the `routes` key for sub routes
+- routes属性表示子路由
+
 - Consumers are free to add any additional props they'd like to a route, you can access `props.route` inside the `component`, this object is a reference to the object used to render and match.
+- 用户可以自由添加任何属性给route，你可以在component中通过props.route访问route对象，route对象是用于渲染和匹配的对象的引用。
+
 - accepts `key` prop to prevent remounting component when transition was made from route with the same component and same `key` prop
+- 当从具有相同组件和相同“key”prop的路由进行转换时，接受`key` prop以防止重新挂载组件
 
 ```js
 const routes = [
